@@ -12,14 +12,22 @@ class SpotifyRemoteApp(OAuthRemoteApp):
         self.__dict__ = remote_dict
         self.api_version = api_version
 
-
     def request(self, url, *args, **kwargs):
         url= '/'+self.api_version + url
         return super().request(url, *args, **kwargs)
 
-
     def get_user(self):
-        return self.get('/me')
+        '''Get current user Profile.'''
+        return self.get('/me').data
 
     def get_followed_artists(self):
-        return self.get('/me/following?type=artist')
+        '''Get current user followed artists'''
+        return self.get('/me/following?type=artist').data
+
+    def get_list_of_playlist(self, user_id):
+        '''Get a list of a user's playlists'''
+        return self.get('/users/%s/playlists'%user_id).data
+
+    def get_playlist_tracks(self, user_id, playlist_id):
+        '''Get the tracks of a user's playlists'''
+        return self.get('/users/%s/playlists/%s/tracks'%(user_id,playlist_id)).data

@@ -42,12 +42,14 @@ def oauth_authorized():
     # user info
     me = spotify.get_user()
     log.debug('Getting user info success!')
-    log.debug('User info %s' %me.data)
+    log.debug('User info %s' %me)
     session['logged_in'] = True
-    session['user'] = me.data['display_name']
+    session['user'] = me['display_name']
+    session['user_id'] = me['id']
+    spotify.user_id = me['id']
     flash('Logged in as id={0} name={1}'.format(
-        me.data['id'],
-        me.data['display_name']), category = 'success')
+        me['id'],
+        me['display_name']), category = 'success')
     return redirect(next_url)
 
 @spotify.tokengetter
@@ -57,10 +59,8 @@ def get_spotify_token(token=None):
 @app.route('/logout')
 def logout():
     session.clear()
-    session.pop('user', None)
-    session['logged_in'] = False
     flash('You were signed out', category='info')
-    return redirect(request.referrer or url_for('index'))
+    return redirect(url_for('index'))
 
 @app.route("/")
 def index():
@@ -68,8 +68,14 @@ def index():
 
 @app.route('/user')
 def user():
-    # get current user_profile
     profile = spotify.get_user()
-    followed_artists = spotify.get_followed_artists()
-    return render_template('user.html', profile=profile.data, followed_artists=followed_artists.data)
+    followed_artists = spotify.get_followed_artists()['artists']['items']
+    playlist_list = spotify.get_list_of_playlist(session['user_id'])['items']
+    tracks = {}
+    for pls in playlist_list:
+        pls_id = pls['id']
+        pls_tracks = spotify.get_playlist_tracks(pls['owner']['id'], pls_id)
+        tracks[pls_id] = pls_tracks['items']
+    # log.debug('Tracks of one playst %s' %(list(tracks.values())[0]))
+    return render_template('user.html', profile=profile, followed_artists=followed_artists, playlist_list=playlist_list, tracks = tracks)
 
