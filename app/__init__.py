@@ -13,7 +13,7 @@ app.config.from_pyfile('config.py')
 
 # spotify oauth varaibles
 oauth=OAuth(app)
-spotify = oauth.remote_app(
+remote_app = oauth.remote_app(
     name = 'spotify',
     content_type = 'application/json',
     request_token_params={'scope': 'user-read-email playlist-read-private playlist-read-collaborative user-follow-read playlist-modify-private'},
@@ -23,6 +23,10 @@ spotify = oauth.remote_app(
     authorize_url='https://accounts.spotify.com/authorize',
     app_key = 'SPOTIFY'
     )
+
+from .helper import SpotifyRemoteApp
+
+spotify = SpotifyRemoteApp(remote_app)
 log = app.logger
 
 # database variables
