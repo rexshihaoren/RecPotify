@@ -23,9 +23,9 @@ def login():
 
 
 @app.route('/callback')
-@spotify.authorized_handler
-def oauth_authorized(resp):
+def oauth_authorized():
     next_url = request.args.get('next') or url_for('index')
+    resp = spotify.authorized_response()
     log.debug("Reponse is %s; is of type %s" % (resp,type(resp)))
     if resp is None:
         flash('Access denied: reason=%s error=%s' % (
