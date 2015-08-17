@@ -1,1 +1,1 @@
-web: python recpotify.py
+web: python run.py

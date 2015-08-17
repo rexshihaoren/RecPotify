@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}
+  {% if session.logged_in %}
+    Home
+  {% else %}
+    {{ super() }}
+  {% endif %}
+{% endblock %}
+{% block content %}
+{% endblock %}

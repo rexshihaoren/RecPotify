@@ -1,0 +1,70 @@
+@import url("960_24_col.css");
+/*fix mobile device right margin problem*/
+html,body
+{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+    font-family: 'GlacialIndifference';
+    font-size: 20px;
+    color:black;
+}
+
+@font-face {
+  font-family: 'GlacialIndifference';
+  src: url('fonts/GlacialIndifference-Regular/GlacialIndifference-Regular.eot?#iefix') format('embedded-opentype'),  url('fonts/GlacialIndifference-Regular/GlacialIndifference-Regular.otf')  format('opentype'),
+       url('fonts/GlacialIndifference-Regular/GlacialIndifference-Regular.woff') format('woff'), url('fonts/GlacialIndifference-Regular/GlacialIndifference-Regular.ttf')  format('truetype'), url('fonts/GlacialIndifference-Regular/GlacialIndifference-Regular.svg#GlacialIndifference-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GlacialIndifference';
+  src: url('fonts/GlacialIndifference-Bold/GlacialIndifference-Bold.eot?#iefix') format('embedded-opentype'),  url('fonts/GlacialIndifference-Bold/GlacialIndifference-Bold.otf')  format('opentype'),
+       url('fonts/GlacialIndifference-Bold/GlacialIndifference-Bold.woff') format('woff'), url('fonts/GlacialIndifference-Bold/GlacialIndifference-Bold.ttf')  format('truetype'), url('fonts/GlacialIndifference-Bold/GlacialIndifference-Bold.svg#GlacialIndifference-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+}
+
+body {
+  padding-top: 70px;
+}
+
+.profile {
+  padding: 10px;
+  background-color: #FCFCFC;
+  margin: 10px;
+}
+
+.navbar-brand {
+  font-size: 25px;
+}
+
+.navbar-default .navbar-brand{
+  color: black;
+}
+.navbar-default .navbar-nav > li > a {
+  color: black;
+}
+
+.form-control {
+  padding: 5px;
+  font-size: 18px;
+}
+
+header {
+  margin-bottom: 50px;
+}
+
+.textcenter {
+  text-align: center;
+}
+
+.alertcontainer{
+  position: relative;
+  width: 100%;
+  height: 50px;
+  z-index: 100;
+}

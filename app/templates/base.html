@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block head %}
+    <title>{% block title %}RecPotify{% endblock %}</title>
+    <!-- Bootstrap -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='ico/favicon.png') }}">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta charset="utf-8">
+    {% endblock %}
+  </head>
+  <body>
+    <header>
+      {% block navbar %}
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand navbar-brand-logo" href="/">
+              <div class="fa fa-headphones fa-lg">
+              </div>
+                RecPotify
+            </a>
+          </div>
+          <div>
+            <ul class="nav navbar-nav navbar-left">
+              {%if session.logged_in%}
+              <li> <a href="/"> <span class='fa fa-home fa-lg'></span> Home </a>
+              </li>
+              {% endif %}
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              {% if not session.logged_in%}
+                <li>
+                  <a href="{{url_for('login')}}"><span class="fa fa-spotify fa-lg"></span> Login with Spotify </a>
+                </li>
+              {% endif %}
+              {% if session.logged_in%}
+                <li>
+                  <a href="{{ url_for('logout') }}"><span class='fa fa-sign-out fa-lg'></span> Logout</a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      {%endblock%}
+      </nav>
+      <div class='alertcontainer'>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <!-- <strong>Title</strong> --> {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      </div>
+    </header>
+    <div class= "content container_24 clearfix">
+      {% block content %}
+      {% endblock %}
+    </div>
+    <footer></footer>
+    {% block js_footer %}
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    {% endblock %}
+  </body>
+</html>
