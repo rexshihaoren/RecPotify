@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, send_from_directory, session, request,url_for, redirect, flash
 from flask_oauthlib.client import OAuth, OAuthException
 # from app import app, db, lm, spotify, oauth, log
-from app import app, spotify, log
+from app import app, spotify, log, cache
 
 @app.route('/favicon.ico')
 def favicon():
@@ -67,6 +67,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/user')
+@cache.cached(timeout=50)
 def user():
     profile = spotify.get_user()
     followed_artists = spotify.get_followed_artists()['artists']['items']

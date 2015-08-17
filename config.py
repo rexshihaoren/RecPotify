@@ -11,6 +11,9 @@ SPOTIFY = {
     'consumer_secret':''
 }
 
+# cache configs
+CACHE_CONFIG = {'CACHE_TYPE': 'simple'}
+
 # # database variables
 # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
 # SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')

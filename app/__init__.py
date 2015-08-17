@@ -4,7 +4,6 @@ import os
 # from flask.ext.sqlalchemy import SQLAlchemy
 from flask_oauthlib.client import OAuth
 
-
 # configuration
 # instance folder (recpotify/instance/) not included in public repo
 app = Flask(__name__,instance_relative_config=True)
@@ -26,6 +25,12 @@ remote_app = oauth.remote_app(
 from .helper import SpotifyRemoteApp
 from config import API_VERSION
 spotify = SpotifyRemoteApp(remote_app, API_VERSION)
+
+# setting up cache
+from flask.ext.cache import Cache
+from config import CACHE_CONFIG
+cache = Cache(app, config=CACHE_CONFIG)
+
 log = app.logger
 
 # database variables
