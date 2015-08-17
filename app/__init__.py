@@ -23,10 +23,9 @@ remote_app = oauth.remote_app(
     authorize_url='https://accounts.spotify.com/authorize',
     app_key = 'SPOTIFY'
     )
-
 from .helper import SpotifyRemoteApp
-
-spotify = SpotifyRemoteApp(remote_app)
+from config import API_VERSION
+spotify = SpotifyRemoteApp(remote_app, API_VERSION)
 log = app.logger
 
 # database variables

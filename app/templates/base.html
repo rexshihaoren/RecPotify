@@ -32,6 +32,8 @@
               {%if session.logged_in%}
               <li> <a href="/"> <span class='fa fa-home fa-lg'></span> Home </a>
               </li>
+              <li> <a href="{{url_for('user')}}"> <span class='fa fa-user fa-lg'></span> User </a>
+              </li>
               {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}
+  {% if session.logged_in %}
+    {{ session.user }}
+  {% else %}
+    {{ super() }}
+  {% endif %}
+{% endblock %}
+{% block content %}
+<div class="profile grid_20 push_2">
+  <p> Profile: {{profile}} </p>
+  <p> Followed Artists:{{ followed_artists}} </p>
+</div>
+{% endblock %}

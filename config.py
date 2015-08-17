@@ -4,7 +4,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 # CSRF_ENABLED = True
 SECRET_KEY = 'recpotify rex'
 
-# spotify key and secret
+# spotify oauth configs
+API_VERSION = 'v1'
 SPOTIFY = {
     'consumer_key':'',
     'consumer_secret':''

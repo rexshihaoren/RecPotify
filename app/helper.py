@@ -1,7 +1,8 @@
 
-# SpotifyRemoteApp is OAuthRemoteApp that is more spotify friendly
+# SpotifyRemoteApp is a spotify-friendlier version of OAuthRemoteApp
 from flask_oauthlib.client import *
-
+# This might be useful in the future when I want to turn any function into lazy property
+from werkzeug import cached_property
 class SpotifyRemoteApp(OAuthRemoteApp):
 
     def __init__(self, remote_app, api_version = 'v1'):
@@ -20,5 +21,5 @@ class SpotifyRemoteApp(OAuthRemoteApp):
     def get_user(self):
         return self.get('/me')
 
-    def get_followed_artist(self):
-        return self.get('/me/following')
+    def get_followed_artists(self):
+        return self.get('/me/following?type=artist')
