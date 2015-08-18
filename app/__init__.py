@@ -1,5 +1,6 @@
 from flask import Flask
 import os
+basedir = os.path.abspath(os.path.dirname('__file__'))
 
 # configuration
 # instance folder (recpotify/instance/) not included in public repo d
@@ -8,7 +9,7 @@ app.config.from_object('config.default')
 app.config.from_pyfile('config.py')
 # Load the file specified by the APP_CONFIG_FILE environment variable
 # Variables defined here will override those in the default configuration
-app.config.from_envvar('APP_CONFIG_FILE')
+app.config.from_pyfile(os.path.join(basedir, os.environ.get('APP_CONFIG_FILE')))
 
 # spotify oauth varaibles
 from flask_oauthlib.client import OAuth
