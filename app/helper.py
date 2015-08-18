@@ -9,7 +9,8 @@ class SpotifyRemoteApp(OAuthRemoteApp):
         assert isinstance(remote_app, OAuthRemoteApp)
         remote_dict = remote_app.__dict__
         super().__init__(oauth=remote_dict['oauth'],name = remote_dict['name'],app_key = remote_dict['app_key'])
-        self.__dict__ = remote_dict
+        for key in self.__dict__.keys():
+            self.__dict__[key] = remote_dict[key]
         self.api_version = api_version
 
     def request(self, url, *args, **kwargs):
