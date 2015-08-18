@@ -3,9 +3,8 @@ basedir = os.path.abspath(os.path.dirname('__file__'))
 
 # spotify oauth configs
 API_VERSION = 'v1'
-SPOTIFY = {
-    'consumer_key':'',
-    'consumer_secret':''
+# need set env vriable SPOTIFY_KEY, SPOTIFY_SECRET
+SPOTIFY={'consumer_key': os.environ.get('SPOTIFY_KEY', ''), 'consumer_secret': os.environ.get('SPOTIFY_SECRET', '')
 }
 
 # cache configs

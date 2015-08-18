@@ -3,13 +3,13 @@ import os
 basedir = os.path.abspath(os.path.dirname('__file__'))
 
 # configuration
-# instance folder (recpotify/instance/) not included in public repo d
-app = Flask(__name__,instance_relative_config=True)
+app = Flask(__name__)
 app.config.from_object('config.default')
-app.config.from_pyfile('config.py')
+
 # Load the file specified by the APP_CONFIG_FILE environment variable
 # Variables defined here will override those in the default configuration
-app.config.from_pyfile(os.path.join(basedir, os.environ.get('APP_CONFIG_FILE')))
+CONFIG_FILE_PATH = os.path.join(basedir, os.environ.get('APP_CONFIG_FILE'))
+app.config.from_pyfile(CONFIG_FILE_PATH)
 
 # spotify oauth varaibles
 from flask_oauthlib.client import OAuth
@@ -22,8 +22,9 @@ remote_app = oauth.remote_app(
     request_token_url=None,
     access_token_url='https://accounts.spotify.com/api/token',
     authorize_url='https://accounts.spotify.com/authorize',
-    app_key = 'SPOTIFY'
+    app_key= 'SPOTIFY'
     )
+
 from .helper import SpotifyRemoteApp
 spotify = SpotifyRemoteApp(remote_app, app.config['API_VERSION'])
 
