@@ -2,9 +2,6 @@ import os
 basedir = os.path.abspath(os.path.dirname('__file__'))
 
 # Standard Config
-PORT = int(os.environ.get("PORT", 8000))
-print(PORT)
-SERVER_NAME = '0.0.0.0:'+ str(PORT)
 DEBUG = False
 TESTING = False
 # spotify oauth configs
