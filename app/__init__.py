@@ -1,16 +1,17 @@
 from flask import Flask
 import os
-# from flask.ext.login import LoginManager
-# from flask.ext.sqlalchemy import SQLAlchemy
-from flask_oauthlib.client import OAuth
 
 # configuration
-# instance folder (recpotify/instance/) not included in public repo
+# instance folder (recpotify/instance/) not included in public repo d
 app = Flask(__name__,instance_relative_config=True)
-app.config.from_object('config')
+app.config.from_object('config.default')
 app.config.from_pyfile('config.py')
+# Load the file specified by the APP_CONFIG_FILE environment variable
+# Variables defined here will override those in the default configuration
+app.config.from_envvar('APP_CONFIG_FILE')
 
 # spotify oauth varaibles
+from flask_oauthlib.client import OAuth
 oauth=OAuth(app)
 remote_app = oauth.remote_app(
     name = 'spotify',
@@ -23,16 +24,17 @@ remote_app = oauth.remote_app(
     app_key = 'SPOTIFY'
     )
 from .helper import SpotifyRemoteApp
-from config import API_VERSION
-spotify = SpotifyRemoteApp(remote_app, API_VERSION)
+spotify = SpotifyRemoteApp(remote_app, app.config['API_VERSION'])
 
 # setting up cache
 from flask.ext.cache import Cache
-from config import CACHE_CONFIG
-cache = Cache(app, config=CACHE_CONFIG)
+cache = Cache(app, config=app.config['CACHE_CONFIG'])
 
+# logging set up
 log = app.logger
 
+# from flask.ext.login import LoginManager
+# from flask.ext.sqlalchemy import SQLAlchemy
 # database variables
 # db = SQLAlchemy(app)
 # lm = LoginManager()

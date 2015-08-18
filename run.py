@@ -1,2 +1,3 @@
 from app import app
-app.run(debug=True)
+import config
+app.run(host='0.0.0.0')
