@@ -70,6 +70,13 @@ def index():
 @cache.cached(timeout=50)
 def user():
     profile = spotify.get_user()
+    # log.debug('Tracks of one playst %s' %(list(tracks.values())[0]))
+    return render_template('user.html', profile=profile)
+
+
+@app.route('/taste')
+@cache.cached(timeout=200)
+def taste():
     followed_artists = spotify.get_followed_artists()['artists']['items']
     playlist_list = spotify.get_list_of_playlist(session['user_id'])['items']
     tracks = {}
@@ -78,5 +85,4 @@ def user():
         pls_tracks = spotify.get_playlist_tracks(pls['owner']['id'], pls_id)
         tracks[pls_id] = pls_tracks['items']
     # log.debug('Tracks of one playst %s' %(list(tracks.values())[0]))
-    return render_template('user.html', profile=profile, followed_artists=followed_artists, playlist_list=playlist_list, tracks = tracks)
-
+    return render_template('taste.html', followed_artists=followed_artists, playlist_list=playlist_list, tracks = tracks)

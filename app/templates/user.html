@@ -9,28 +9,5 @@
 {% block content %}
 <div class="profile grid_20 push_2">
   <p> Profile: {{profile}} </p>
-  <p> Followed Artists:
-    <!-- {{ followed_artists[0].keys()}} -->
-    {% for artist in followed_artists%}
-      <ul>
-        <li>{{ artist.name }}</li>
-      </ul>
-    {% endfor %}
-  </p>
-  <p> Playlist list:
-    <!-- {{ playlist_list[0].keys()}} -->
-    {% for pls in playlist_list %}
-      <ul>
-        <li>{{ pls.name }}
-          {% for track in tracks[pls.id]%}
-          <ul>
-            <!-- {{ track.keys()}} -->
-            <li>{{ track.track.name }}</li>
-          </ul>
-          {% endfor %}
-        </li>
-      </ul>
-    {% endfor %}
-  </p>
 </div>
 {% endblock %}
