@@ -19,3 +19,7 @@ SECRET_KEY = 'recpotify rex'
 # # database variables
 # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
 # SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
+
+# celery variables
+CELERY_BROKER_URL='redis://localhost:6379',
+CELERY_RESULT_BACKEND='redis://localhost:6379'

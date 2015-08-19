@@ -1,3 +1,6 @@
+import subprocess
+subprocess.call("sh ./run-redis.sh &", shell=True)
+subprocess.call("sh ./run-celery.sh &", shell=True)
 import os
 from app import app
 port = int(os.environ.get('PORT', 5000))
