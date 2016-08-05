@@ -1,8 +1,9 @@
-import os
+import os, json
 from flask import Flask, render_template, send_from_directory, session, request,url_for, redirect, flash
 from flask_oauthlib.client import OAuth, OAuthException
 # from app import app, db, lm, spotify, oauth, log
-from app import app, spotify, log, cache
+from app import app, spotify, log, cache, redis
+from .tasks import dump_tracks
 
 @app.route('/favicon.ico')
 def favicon():
@@ -75,14 +76,27 @@ def user():
 
 
 @app.route('/taste')
-@cache.cached(timeout=200)
+# @cache.cached(timeout=200)
 def taste():
     followed_artists = spotify.get_followed_artists()['artists']['items']
     playlist_list = spotify.get_list_of_playlist(session['user_id'])['items']
-    tracks = {}
+    # tracks = {}
     for pls in playlist_list:
         pls_id = pls['id']
-        pls_tracks = spotify.get_playlist_tracks(pls['owner']['id'], pls_id)
-        tracks[pls_id] = pls_tracks['items']
+        # pls_tracks = spotify.get_playlist_tracks(pls['owner']['id'], pls_id)
+        dump_tracks.delay(spotify.get_playlist_tracks(pls['owner']['id'], pls_id)['items'])
+        # tracks[pls_id] = pls_tracks['items']
+
     # log.debug('Tracks of one playst %s' %(list(tracks.values())[0]))
-    return render_template('taste.html', followed_artists=followed_artists, playlist_list=playlist_list, tracks = tracks)
+    # return render_template('taste.html', followed_artists=followed_artists, playlist_list=playlist_list, tracks = tracks)
+    return render_template('taste.html', followed_artists=followed_artists, playlist_list=playlist_list)
+
+@app.route('/tracks')
+def tracks():
+    if not redis.exists('num_tracks'):
+        flash('no tracks yet', category='warning')
+        redirect('/')
+    else:
+        tracks = redis.get('tracks').decode("utf-8", "ignore")
+    return render_template('tracks.html',tracks=tracks)
+

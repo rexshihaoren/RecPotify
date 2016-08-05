@@ -17,12 +17,6 @@ Taste
     {% for pls in playlist_list %}
       <ul>
         <li>{{ pls.name }}
-          {% for track in tracks[pls.id]%}
-          <ul>
-            <!-- {{ track.keys()}} -->
-            <li>{{ track.track.name }}</li>
-          </ul>
-          {% endfor %}
         </li>
       </ul>
     {% endfor %}

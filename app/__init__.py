@@ -50,6 +50,9 @@ def make_celery(app):
 celery = make_celery(app)
 celery.conf.update(app.config)
 
+# setup redis
+from redis import Redis
+redis = Redis()
 
 # logging set up
 log = app.logger
